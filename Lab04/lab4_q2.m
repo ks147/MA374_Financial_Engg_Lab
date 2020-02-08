@@ -28,7 +28,7 @@ ylabel('expected return') ;
 title('Efficient Frontier with no short sale');
 
 %Stock1 and Stock 2
-C1 = [0.040 -0.002;-0.002 0.023];
+C1 = [0.005 -0.010;-0.010 0.040];
 M1 = [0.1;0.2];
 [mu2 w2 sigma2 w_min2] = eff_frontier(M1,C1,100);
 sd_min2 = sqrt(w_min2'*C1*w_min2); 
@@ -41,6 +41,7 @@ set(p2,'linewidth',2) ;
 set(p2,'color','red') ;
 
 %Stock2 and Stock 3
+
 C1 = [0.040 -0.002;-0.002 0.023];
 M1 = [0.2;0.15];
 [mu2 w2 sigma2 w_min2] = eff_frontier(M1,C1,100);
@@ -54,8 +55,9 @@ set(p2,'linewidth',2) ;
 set(p2,'color','green') ;
 
 %stock 1 and 3
+%[0.005 -0.010 0.004;-0.010 0.040 -0.002;0.004 -0.002 0.023];
 C1 = [0.005 0.004;0.004 0.023];
-M1 = [0.2;0.15];
+M1 = [0.1;0.15];
 [mu2 w2 sigma2 w_min2] = eff_frontier(M1,C1,100);
 sd_min2 = sqrt(w_min2'*C1*w_min2); 
 mu_min2 = w_min2'*M1;
@@ -65,6 +67,12 @@ ind_below_min = (mu2 < mu_min) ;	%	Indicates locus below efficient horizon
 p2 = plot(sigma2(ind_above_min),mu2(ind_above_min),'-',sigma2(ind_below_min),mu2(ind_below_min),'--') ;
 set(p2,'linewidth',2) ;
 set(p2,'color','yellow') ;
+
+figure(2);
+p1 = plot(w2(1,:),w2(2,:),'-');
+set(p1,'color','red');
+% line([1 0],[0 1],'color','blue');
+
 
 %to ensure no short sale take all portfolios within return between max(M) and min(M)
 function [mu w_for_mu sigma w_g] = eff_frontier(M,V,points)
