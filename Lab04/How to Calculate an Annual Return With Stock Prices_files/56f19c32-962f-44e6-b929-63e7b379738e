@@ -1,0 +1,1 @@
+Krux.ns.fool.kxjsonp_consent_get_0({"status":400,"body":{"settings":{"dc":1,"al":1,"tg":1,"cd":1,"sh":0,"re":0},"pr":"global","code":"bad_request","source":"unk","errors":{"idv":"no identifier found for user","query":"no user id"}}});

@@ -1,3 +1,7 @@
+clear all;
+close all;
+clc;
+clf;
 M = [0.1;0.2;0.15];
 V = [0.005 -0.010 0.004;-0.010 0.040 -0.002;0.004 -0.002 0.023];
 Vinv = inv(V);
@@ -9,7 +13,7 @@ D = A*C - B^2;
 
 bg = (C*Vinv*e - B*Vinv*M)/D;
 bh = (A*Vinv*M - B*Vinv*e)/D;
-mu = linspace(0.005,max(M),2000);
+mu = linspace(0.005,0.3,2000);
 sigma = zeros(1,2000);
 w_for_mu = zeros(3,2000);
 for i=1:2000
@@ -28,7 +32,7 @@ ind_below_min = (mu < mu_min) ;	%	Indicates locus below efficient horizon
 %		-  the inefficient part of the locus is dashed
 figure(1)
 p1 = plot(sigma(ind_above_min),mu(ind_above_min),'-',sigma(ind_below_min),mu(ind_below_min),'--' ,sd_min,mu_min,'.') ;
-
+hold on;
 %	Change line widths, marker sizes, and colors for better appearance
 set(p1(1:2),'linewidth',2) ;
 set(p1(1:2),'color','blue') ;
@@ -41,7 +45,12 @@ ylabel('expected return') ;
 % set(gca,'xlim',[.25, .5]) ;
 % set(gca,'ylim',[0.028, .08]) ;
 grid;
-
+%%%%%(b)
+fprintf('Risk\tReturn\tWeights\n');
+for i=1:10
+    fprintf('%0.3f\t%0.3f\t%0.3f %0.3f %0.3f\n',sigma(i),mu(i),w_for_mu(:,i));
+end
+fprintf('\n\n');
 %%%%%(c)%%%%%
 mu1 = mu(ind_below_min);
 mu2 = mu(ind_above_min);
@@ -72,9 +81,12 @@ rf = 0.1;
 W_tang = Vinv*(M-rf*e)/sum(Vinv*(M-rf*e));
 mu_tang = W_tang'*M;
 sig_tang = sqrt(W_tang'*V*W_tang);
-y_max = 0.3;
+y_max = max(M);
 x_max = sig_tang+sig_tang*(y_max-mu_tang)/(mu_tang-rf);
 line([0 x_max],[rf y_max],'Color','green')
+plot([0 sig_tang],[rf mu_tang],'.','Color','green','markersize',15);
+legend({'Effecient Frontier','min return','min variance','CAPM'},'location','northwest');
+hold off;
 %%%%%(e)%%%%
 %risk=0.1
 mu_4 = mu_tang + (0.1-sig_tang)*(mu_tang-rf)/sig_tang;

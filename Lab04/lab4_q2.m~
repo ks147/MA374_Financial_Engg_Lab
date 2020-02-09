@@ -81,8 +81,7 @@ end
 
 % ind_short1 = (mu_short > min(M)) & (mu_short < max(M));
 scatter(sigma_short,mu_short,'.');
-legend({'3 stocks','min return','min variance','stock 1&2','min return','stock 2&3','min return',...
-    'stock1&3','min return','No short sale'},'Location','northwest')
+legend({'3 stocks','min risk','cos(3x)','cos(4x)'},'Location','northwest')
 
 figure(2);
 p1 = plot(w1(1,:),w1(2,:),'-');

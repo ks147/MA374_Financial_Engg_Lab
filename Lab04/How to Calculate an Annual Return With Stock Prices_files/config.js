@@ -1,0 +1,1 @@
+var _pfacfg=_pfacfg||{};_pfacfg.candidates=_pfacfg.candidates||{};_pfacfg.variations=_pfacfg.variations||{};_pfacfg.abTestConfigs=_pfacfg.abTestConfigs||[];_pfacfg.acctcfg={"generic":{"branding":false,"displayConditions":{}}};

@@ -1,7 +1,4 @@
 warning('off','all');
-clear all;
-clc;
-clf;
 stock_ticker = ["ADBE","BIIB","CMG","EA","FB","GOOG",...
     "IT","MNST","NFLX","UAA"];
 ret = zeros(60,10);
@@ -19,6 +16,7 @@ for i=1:length(stock_ticker)
     annual_ret = (stock_ret+1).^((e1./time)) - 1; 
     ret(:,i) = annual_ret;
     M(i) = mean(annual_ret);
+    
 end
 
 C = cov(ret);
@@ -53,12 +51,10 @@ y_max = max(M);
 x_max = sig_market+sig_market*(y_max-mu_market)/(mu_market-rf);
 line([0 sig_market],[rf mu_market],'Color','green');
 plot([0 sig_market],[rf mu_market],'.','color','green','markersize',15);
-legend({'Effecient Frontier','min return','min variance','CAPM'},'location','northwest');
 hold off;
 
-fprintf('Market Portfolio has return=%0.3f and risk=%0.3f\n',mu_market,sig_market);
-
-security_market_line(M,rf);
+fprintf('Market Portfolio has return=%0.3ff\n and risk=%0.3f',mu_market,sig_market);
+beta = linspace(-1,1,100);
 
 function [mu w_for_mu sigma w_g] = eff_frontier(M,V,points)
 Vinv = inv(V);
@@ -84,13 +80,10 @@ w_g = Vinv*e/A;
 
 
 end
-function security_market_line(M,rf)
+function security_market_line(M,beta,rf)
 figure;
     for i=1:length(M)
-        line([-1 1],[(rf + (M(i)-rf)) (rf-(M(i)-rf))]);
-    end
- title('Security Market Line');
- xlabel('Beta');
- ylabel('Mena return');
+        Y = rf + (M(i)-rf)*beta;
+
 end
 
