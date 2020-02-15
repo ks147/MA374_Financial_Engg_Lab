@@ -7,7 +7,6 @@ stock_ticker = ["ADBE","BIIB","CMG","EA","FB","GOOG",...
 ret = zeros(60,10);
 M = zeros(10,1);
 rf = 0.05;
-interest = exp(-rf.*[1/12:1/12:5]');
 e1 = ones(60,1);
 time = [1/12:1/12:5]';
 
@@ -15,7 +14,6 @@ for i=1:length(stock_ticker)
     price_dir = strcat('stock_prices','/',stock_ticker(i),'.csv');
     s = readtable(price_dir);
     stock_ret = (s.Close(2:61) - s.Open(1))./s.Open(1);
-    stock_ret = stock_ret.*interest;
     annual_ret = (stock_ret+1).^((e1./time)) - 1; 
     ret(:,i) = annual_ret;
     M(i) = mean(annual_ret);
