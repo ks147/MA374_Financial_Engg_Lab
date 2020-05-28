@@ -35,7 +35,7 @@ function [call_p put_p]=asian(S0,T,K,r,sigma,M,part)
         avg=0;
         iforavg=i;
         for j=M+1:-1:1
-            avg=avg+ (stock_price(j,iforavg)/(M+1));
+            avg=avg+(stock_price(j,iforavg)/(M+1));
             iforavg=ceil(iforavg/2);
         end
         call_vals(M+1,i)=max(0,avg-K);

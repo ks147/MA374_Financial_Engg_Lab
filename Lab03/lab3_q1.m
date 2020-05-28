@@ -112,7 +112,7 @@ j = 1;
 
 figure;
 plot(X,Y);
-title(sprintf('European Call price vs number of sub-intervals for K = %d',K));
+title(sprintf('American Call price vs number of sub-intervals for K = %d',K));
 xlabel('M');
 ylabel('option price');
 hold on;
